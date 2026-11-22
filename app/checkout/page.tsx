@@ -590,7 +590,10 @@ export default function CheckoutPage() {
                     return (
                       <div key={it.id} className="checkout-item-card">
                         <div className="checkout-item-thumb">
-                          <FrameThumb frame={f} />
+                          <FrameThumb
+                            frame={f}
+                            strokeColor={col?.hex || "#ff2a4d"}
+                          />
                         </div>
                         <div className="checkout-item-details">
                           <div className="checkout-item-title-row">

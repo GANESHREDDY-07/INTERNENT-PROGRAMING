@@ -105,7 +105,14 @@ export default function FitGuide({
                       onClick={() => onSelectFrame(id)}
                     >
                       <span className="fit-card-thumb">
-                        <FrameThumb frame={frame} />
+                        <FrameThumb
+                          frame={frame}
+                          strokeColor={
+                            frame.id === "circle" || frame.id === "aviator"
+                              ? "#d4af37"
+                              : "#ff2a4d"
+                          }
+                        />
                       </span>
                       <span className="fit-card-head">
                         <span className="fit-card-name">{frame.name}</span>

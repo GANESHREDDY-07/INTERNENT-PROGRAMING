@@ -396,7 +396,10 @@ export default function AiStylist({
                             return (
                               <>
                                 <div className="msg-card-thumb">
-                                  <FrameThumb frame={frame} />
+                                  <FrameThumb
+                                    frame={frame}
+                                    strokeColor="#ff2a4d"
+                                  />
                                 </div>
                                 <div className="msg-card-meta">
                                   <div className="msg-card-title-row">

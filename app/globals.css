@@ -2837,7 +2837,7 @@ svg {
 .msg-card {
   margin-top: 12px;
   padding: 12px;
-  background: #fff;
+  background: var(--paper-2);
   border: 1px solid var(--line);
   border-radius: 4px;
 }
@@ -3105,7 +3105,7 @@ svg {
   grid-template-columns: 90px 1fr;
   gap: 16px;
   padding: 16px;
-  background: #fff;
+  background: var(--paper-2);
   border: 1px solid var(--line);
   border-radius: 4px;
 }
@@ -3494,24 +3494,34 @@ svg {
 
 .col-card-thumb-wrap {
   position: relative;
-  height: 140px;
+  height: 156px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: #fff;
+  padding: 24px 20px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 30, 66, 0.12) 0%, #0d0d14 75%);
+  border-bottom: 1px solid var(--line-soft);
   cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.col-card:hover .col-card-thumb-wrap {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 30, 66, 0.22) 0%, #13131e 75%);
+  border-bottom-color: var(--brass-soft);
 }
 
 .col-thumb {
   width: 100%;
-  max-height: 80px;
-  color: var(--ink);
-  transition: transform 0.3s var(--ease);
+  max-height: 88px;
+  color: var(--brass);
+  filter: drop-shadow(0 0 12px rgba(255, 30, 66, 0.75)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85));
+  transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
 }
 
 .col-card:hover .col-thumb {
-  transform: scale(1.06);
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 18px rgba(255, 30, 66, 0.95)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9));
 }
 
 .thumb-hover-label {
@@ -3521,16 +3531,19 @@ svg {
   font-size: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--brass);
-  background: rgba(243, 237, 226, 0.9);
-  padding: 3px 8px;
+  color: #fff;
+  background: rgba(255, 30, 66, 0.85);
+  padding: 3px 10px;
   border-radius: 999px;
+  box-shadow: 0 0 10px rgba(255, 30, 66, 0.5);
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
+  transform: translateY(4px);
 }
 
 .col-card:hover .thumb-hover-label {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .col-card-info {
@@ -3593,11 +3606,25 @@ svg {
 }
 
 .mini-swatch {
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  border: 1px solid rgba(25, 20, 17, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   display: inline-block;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.mini-swatch:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 8px rgba(255, 30, 66, 0.7);
+}
+
+.mini-swatch.is-active {
+  transform: scale(1.25);
+  border-color: #fff;
+  box-shadow: 0 0 8px rgba(255, 30, 66, 0.8), 0 0 0 2px #fff;
 }
 
 .col-card-actions {
@@ -4919,6 +4946,34 @@ svg {
   border-color: rgba(255, 30, 66, 0.22);
   color: #f8f8fa;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="cyber-crimson"] .col-card-thumb-wrap {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 30, 66, 0.16) 0%, #0c0c12 75%);
+  border-bottom: 1px solid rgba(255, 30, 66, 0.22);
+}
+
+[data-theme="cyber-crimson"] .col-thumb {
+  filter: drop-shadow(0 0 14px rgba(255, 30, 66, 0.85)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9));
+}
+
+[data-theme="stealth-obsidian"] .col-card-thumb-wrap {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, #08080c 75%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="stealth-obsidian"] .col-thumb {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+}
+
+[data-theme="classic-atelier"] .col-card-thumb-wrap {
+  background: radial-gradient(circle at 50% 50%, #faf6ee 0%, #ece2d2 85%);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+[data-theme="classic-atelier"] .col-thumb {
+  color: #191411;
+  filter: drop-shadow(0 2px 4px rgba(25, 20, 17, 0.18));
 }
 
 [data-theme="cyber-crimson"] .btn-ink {

@@ -209,7 +209,12 @@ export default function BagDrawer({
                 return (
                   <div key={item.id} className="bag-item-card">
                     <div className="bag-item-thumb">
-                      <FrameThumb frame={frame} />
+                      <FrameThumb
+                        frame={frame}
+                        strokeColor={
+                          getColour(frame, item.colourId)?.hex || "#ff2a4d"
+                        }
+                      />
                     </div>
                     <div className="bag-item-info">
                       <div className="bag-item-head">

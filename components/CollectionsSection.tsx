@@ -23,6 +23,27 @@ export default function CollectionsSection({
 }: CollectionsSectionProps) {
   const [activeOrigin, setActiveOrigin] = useState<OriginId | "all">("all");
   const [activeCollection, setActiveCollection] = useState<CollectionId>("all");
+  const [activeColours, setActiveColours] = useState<Record<string, string>>({});
+
+  const getFrameThumbColor = (frame: (typeof FRAMES)[number]) => {
+    if (activeColours[frame.id]) return activeColours[frame.id];
+    if (frame.id === "circle") return "#d4af37";
+    if (frame.id === "rectangle") return "#ff2a4d";
+    if (frame.id === "oval") return "#f472b6";
+    if (frame.id === "round") return "#eab308";
+    if (frame.id === "retro") return "#f97316";
+    if (frame.id === "aviator") return "#eab308";
+    const bright = frame.colours.find(
+      (c) =>
+        c.metal ||
+        (c.hex !== "#171717" &&
+          c.hex !== "#19191d" &&
+          c.hex !== "#232323" &&
+          c.hex !== "#211f1c" &&
+          c.hex !== "#1c1c22")
+    );
+    return bright ? bright.hex : "#ff2a4d";
+  };
 
   // Listen to hash changes for #collections-international and #collections-indian
   useEffect(() => {
@@ -194,7 +215,11 @@ export default function CollectionsSection({
                   tabIndex={0}
                   title={`View ${frame.name} in 3D Atelier`}
                 >
-                  <FrameThumb frame={frame} className="col-thumb" />
+                  <FrameThumb
+                    frame={frame}
+                    strokeColor={getFrameThumbColor(frame)}
+                    className="col-thumb"
+                  />
                   <span className="thumb-hover-label">Turn in 3D ↺</span>
                 </div>
 
@@ -218,14 +243,37 @@ export default function CollectionsSection({
                   <div className="col-card-colours">
                     <span className="micro">Finishes:</span>
                     <div className="col-swatch-list">
-                      {frame.colours.map((c) => (
-                        <span
-                          key={c.id}
-                          className="mini-swatch"
-                          style={{ backgroundColor: c.hex }}
-                          title={c.name}
-                        />
-                      ))}
+                      {frame.colours.map((c) => {
+                        const isCurrent = getFrameThumbColor(frame) === c.hex;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            className={`mini-swatch ${isCurrent ? "is-active" : ""}`}
+                            style={{
+                              backgroundColor: c.hex,
+                              transform: isCurrent ? "scale(1.28)" : undefined,
+                              boxShadow: isCurrent
+                                ? "0 0 8px rgba(255, 30, 66, 0.8), 0 0 0 2px #fff"
+                                : undefined,
+                            }}
+                            title={`${c.name} (Click to preview)`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveColours((prev) => ({
+                                ...prev,
+                                [frame.id]: c.hex,
+                              }));
+                            }}
+                            onMouseEnter={() => {
+                              setActiveColours((prev) => ({
+                                ...prev,
+                                [frame.id]: c.hex,
+                              }));
+                            }}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
 
