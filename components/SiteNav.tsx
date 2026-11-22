@@ -19,6 +19,7 @@ interface SiteNavProps {
   onOpenLogin: () => void;
   onOpenStylist: () => void;
   onOpenSettings?: () => void;
+  onOpenBooking?: () => void;
 }
 
 export default function SiteNav({
@@ -28,6 +29,7 @@ export default function SiteNav({
   onOpenLogin,
   onOpenStylist,
   onOpenSettings,
+  onOpenBooking,
 }: SiteNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(false);
@@ -179,9 +181,13 @@ export default function SiteNav({
               <span className="bag-count">{String(bagCount).padStart(2, "0")}</span>
             </button>
 
-            <a href="#visit" className="btn nav-cta">
+            <button
+              type="button"
+              className="btn nav-cta nav-cta-orange"
+              onClick={onOpenBooking || (() => { window.location.hash = "#visit"; })}
+            >
               Book a fitting
-            </a>
+            </button>
 
             <button
               type="button"

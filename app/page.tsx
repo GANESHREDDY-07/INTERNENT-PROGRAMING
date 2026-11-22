@@ -17,6 +17,7 @@ import MagneticCursor from "@/components/MagneticCursor";
 import SettingsPanel, { type ThemeMode } from "@/components/SettingsPanel";
 import WebcamTryOn from "@/components/WebcamTryOn";
 import SplitStageModal from "@/components/SplitStageModal";
+import FittingBookingModal from "@/components/FittingBookingModal";
 import {
   type FrameConfig,
   type FrameId,
@@ -35,6 +36,7 @@ export default function Home() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAROpen, setIsAROpen] = useState(false);
   const [isCompareOpen, setIsCompareOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const [config, setConfig] = useState<FrameConfig>({
     frameId: "rectangle",
@@ -202,6 +204,7 @@ export default function Home() {
         onOpenLogin={() => setIsLoginOpen(true)}
         onOpenStylist={() => setIsStylistOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenBooking={() => setIsBookingOpen(true)}
       />
 
       <main>
@@ -237,7 +240,7 @@ export default function Home() {
         <FitGuide onSelectFrame={selectFrame} />
       </main>
 
-      <SiteFooter />
+      <SiteFooter onOpenBooking={() => setIsBookingOpen(true)} />
 
       {/* Floating Interactive AI Optical Stylist */}
       <AiStylist
@@ -280,6 +283,13 @@ export default function Home() {
         onClose={() => setIsLoginOpen(false)}
         currentUser={currentUser}
         onUserChange={setCurrentUser}
+      />
+
+      {/* Private Atelier Fitting Reservation Modal */}
+      <FittingBookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+        currentUser={currentUser}
       />
 
       {/* Interactive Fitting Bag Drawer */}

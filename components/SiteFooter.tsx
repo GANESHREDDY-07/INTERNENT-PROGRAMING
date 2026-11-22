@@ -2,7 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 
-export default function SiteFooter() {
+interface SiteFooterProps {
+  onOpenBooking?: () => void;
+}
+
+export default function SiteFooter({ onOpenBooking }: SiteFooterProps) {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
 
@@ -16,24 +20,30 @@ export default function SiteFooter() {
   return (
     <footer id="visit" className="footer">
       <div className="shell">
-        <div className="foot-cta">
+        <div className="foot-cta foot-cta-orange-banner">
           <div>
-            <div className="section-kicker foot-kicker">
+            <div className="section-kicker foot-kicker foot-kicker-orange">
               <span>05</span>
-              <span>Visit</span>
+              <span>Visit & Private Fitting</span>
             </div>
             <h2 className="display foot-title">
               Book a fitting.
               <br />
-              <em>Bring your curiosity.</em>
+              <em className="orange-glow-text">Bring your curiosity.</em>
             </h2>
           </div>
-          <a
-            className="btn btn-light foot-cta-btn"
-            href="mailto:hello@marlowe.optical?subject=Fitting%20appointment"
+          <button
+            type="button"
+            className="btn foot-cta-btn foot-cta-orange"
+            onClick={() => {
+              if (onOpenBooking) onOpenBooking();
+            }}
+            aria-label="Open private fitting reservation window"
           >
-            Book a fitting <span aria-hidden="true">↗</span>
-          </a>
+            <span className="btn-orange-beacon" />
+            <span>Book a fitting</span>
+            <span aria-hidden="true" className="btn-arrow-icon">↗</span>
+          </button>
         </div>
 
         <div className="foot-grid">
@@ -98,10 +108,10 @@ export default function SiteFooter() {
         </div>
 
         <div className="fine">
-          <span>© 2026 Marlowe Optical Atelier</span>
-          <span>Handmade in London</span>
-          <span>Frames · Lenses · Care</span>
-          <a href="#top">Back to top ↑</a>
+          <p>© 2026 Marlowe Optical Atelier · London & New Delhi</p>
+          <p>
+            <a href="#top">Back to top ↑</a>
+          </p>
         </div>
       </div>
     </footer>
